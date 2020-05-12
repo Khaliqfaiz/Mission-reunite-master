@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Planet of Pets</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <link rel="stylesheet" href="{% static 'css/dropdown.css' %}">
+ <link rel="stylesheet" href="{% static 'css/background.css' %}">
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body  background="{% static 'images/back.jpg' %} ">
+  <header class="site-header">
+        <nav class="navbar navbar-expand-md  fixed-top navbar-dark bg-primary">
+          <div class="container">
+          <a class="navbar-brand " href="{% url 'mainhome' %}">
+            <img  class="rounded-circle account-img" src="{% static 'images/logo.png' %}" width="70" height="30" alt="">
+          </a>
+          <a class="navbar-brand mr-4" href="{% url 'mainhome' %}">Mission Reunite</a>
+             <!--   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>-->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarToogle">
+                  <ul class="navbar-nav mr-auto">
+                      <a class="nav-item nav-link" href="{% url 'mainhome' %}">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item dropdown ">
+                            <a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Missing Cases
+                            </a>
+                            <div class="dropdown-menu"  >
+                              <a class="dropdown-item" href="#"></a>
+                              <a class="dropdown-item" href="{% url 'new_case' %}">Register a Missing Case</a>
+                              <!--<div class="dropdown-divider"></div>-->
+                              <a class="dropdown-item" href="{% url 'case' %}">Registered Missing Cases</a>
+                              <a class="dropdown-item" href="{% url 'casefinder' %}">Post found Pets which are unregistered</a>
+                              <a class="dropdown-item" href="{% url 'case_finder_list' %}">Lost pets which are unregistered</a>
+                               {% if user.is_authenticated %}
+                        <a class="dropdown-item" href="{% url 'found' %}">My Found pets</a>
+                        <a class="dropdown-item" href="{% url 'unfound' %}">My Missing pets</a>
+                        <a class="dropdown-item" href="{% url 'foundbyme' %}">Pets Found By Me</a>
+              
+                        {% endif %}
+                            </div> 
+                          </li>
+                  </ul>
+                  <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'signout' %}">SignOut</a>
+                        <a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a>
+                    {% else %}
+                       <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                       <a class="nav-item nav-link" href="{% url 'signin' %}">Sign In</a>
+                    {% endif %}
+                  </div> 
+                </div>
+                </div>
+              </nav>  
+            </header>
+            <div class="container">
+                {% if messages %}
+                  {% for mesg in messages %}
+                     <div class="alert alert-{{message.tags}}">
+                       {{ message }}
+                     </div>
+                   {% endfor %}
+                {% endif %}
+                {% block content %}{% endblock%}
+           </div>
+           <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+           <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>

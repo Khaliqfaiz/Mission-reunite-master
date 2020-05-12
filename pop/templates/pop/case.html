@@ -1,0 +1,33 @@
+{% extends "home.html" %}
+
+{% block content %}
+  <h1 style="font-family: 'Times New Roman', Times, serif">
+    REGISTERED CASES
+  </h1> 
+<div  class="w3-container" style="display : inline-block; margin-top : 20px">
+  {% for case in object_list %}
+  {% if case.user != None %}
+ <div class="card text-xs-center" style="box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.2);width:300px;display:inline-block;margin-right: 20px; margin-top: 40px;margin-left: 20px">
+  <div class="card-header" style="color:white;background-color:rgba(0, 0, 0, 0.9);">
+      <img class="card-img-top" src="{{ case.pet_image.url }}" alt="Card image cap">
+    <h3 style="color:white">{{ case.pet_name }}</h3>
+  </div>
+    <div class="card border-info mb-3">
+  <div class="card-block mdl-button"  style="width: 18rem;">
+      <h4 class="card-title"><b>Type</b> : {{ case.pet_type }}</h4>
+      <h4 class="card-title"><b>Owner</b> : {{ case.user }}</h4>
+    <h4 class="card-title"><b>Breed</b> : {{ case.pet_breed }}</h4>
+      <p class="card-text"><b>Lost Date</b> : {{ case.lost_date }}</p>
+      <p class="card-text"><b>Lost Location</b> : {{ case.lost_location }}</p>
+   <a href="{% url 'case_detail' case.id %}" class="btn btn-primary float-center outline:none">Show Details</a>
+  </div>
+  <div class="card-footer text-muted bg-transparent border-info">
+    {{case.filed_date}}
+  </div>
+  </div>
+</div>
+  {% endif %}
+  {% endfor %}
+  </div>
+
+{% endblock %}

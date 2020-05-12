@@ -1,0 +1,26 @@
+{% extends "home.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="content-section" style="padding:20px; width:40%;margin :  0 auto">
+        <div class="media">
+          <div class="media-body">
+            <h2 class="account-heading">{{ user.username }}</h2>
+            <p class="text-secondary">{{ user.email }}</p>
+            <p class="text-secondary">{{ user.profile.first_name }}</p>
+            <p class="text-secondary">{{ user.profile.last_name }}</p>
+          </div>
+        </div>
+        <!-- FORM HERE -->
+        <form method="POST" enctype="multipart/form-data"> <!-- to update images it is required-->
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Profile Info</legend>
+                    {{u_form|crispy}}
+                    {{p_form|crispy}}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Update</button>
+                </div>
+            </form>
+      </div>
+{% endblock content %}

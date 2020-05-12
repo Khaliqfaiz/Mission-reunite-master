@@ -1,0 +1,57 @@
+{% extends "home.html" %}
+
+{% block content %}
+<div  style="box-shadow: 0 14px 18px 20px rgba(0, 0, 0, 0.2);
+padding:10px; width:60%;margin :  0 auto; background-color:whitesmoke ">
+  <img class="img-fluid float-right"  width = 250px height=250px src="{{ case.pet_image.url }}">
+   <h1> CASE: {{case.id}}</h1>
+   <h3> Name: {{case.pet_name}}</h3>
+   <h3> Type: {{case.pet_type}}</h3>
+   <h3> Breed: {{case.pet_breed}}</h3>
+   <h3> Lost Date: {{case.lost_date}}</h3>
+   <h3> Lost Location: {{case.lost_location|safe}}</h4>
+   <h3> Filed Date:{{case.filed_date}} </h3>
+   <h3> Reward: {{case.reward}}</h3>
+   {% if case.found_status == False or case.founder_username == user.get_username %}
+   <h3> Contact: {{case.user_contact_no}} </h3>
+   <h3> Address: {{case.user_address}}</h3>
+   <h3> Owner: {{case.user.first_name }}</h3>
+   {% else %}
+   {% if object.user == user %}
+   <h2><span class="badge badge-success">Pet Has been Found by: </span></h2>
+   <h3> User Name: {{case.founder_username}}</h3>
+   <h3> Name: {{case.citizen_name}} </h3>
+   <h3> Contact: {{case.citizen_phone}}</h3>
+   <h3> Location: {{case.found_location }}</h3>
+   <h4> Date: {{case.found_date }}</h3>
+   <img class="img-fluid"  width = 250px height=250px src="{{ case.found_pet_image.url }}">
+   {% endif %}
+   {% endif %}
+   {% if object.user == user and object.confirmed_status == False and object.found_status == True %}
+        <div>
+        <a class="btn btn-success btn-m mt-1 mb-1" href="{% url 'case_confirm' object.id %}">Confirm</a>
+        </div>
+    {% endif %}
+   {% if object.user == user %}
+          <div>
+            <a class="btn btn-secondary btn-m mt-1 mb-1" href="{% url 'case_update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-m mt-1 mb-1" href="{% url 'case_delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+   {% if object.user != user and object.found_status == False %}
+        <div>
+          <a class="btn btn-success" href="{% url 'case_found' object.id %}">Click Here If Find</a>
+        </div>
+    {% endif %}
+    {% if object.user != user and object.found_status == True and object.confirmed_status == False %}
+    <div>
+      <h2><span class="badge badge-success">Pet Has been Found by You<br>   and it is yet to be confirmed by its owner</span></h2>
+    </div>
+    {% endif %}
+    {% if object.user != user and object.found_status == True and object.confirmed_status == True %}
+    <div>
+      <h2><span class="badge badge-success">Pet Has been Found by You<br>  and it is confiremd by its owner</span></h2>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="content-section" style="padding:20px; width:40%;margin :  0 auto">
+        <div class="border-top pt-3" style="margin-top:50px;" >
+        <h2> You have been signed out </h2>
+            <small class="text-muted">
+                 <a href="{% url 'signin' %}">Sign In Again</a>
+            </small>
+        </div>
+</div>
+{% endblock content %}

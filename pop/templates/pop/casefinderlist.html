@@ -1,0 +1,36 @@
+{% extends "home.html" %}
+
+{% block content %}
+<h1 style="font-family: 'Times New Roman', Times, serif">
+  UNREGISTERED LOST PETS
+</h1> 
+<div  class="w3-container" style="display : inline-block; margin-top : 20px">
+  {% for case in object_list %}
+  {% if case.user == None %}
+  <div class="card text-xs-center" style="box-shadow: 0 0 0 8px rgba(0, 0, 0, 0.2);width:300px;display:inline-block;margin-right: 20px; margin-top: 40px;margin-left: 20px">
+    <div class="card-header" style="color:white;background-color:rgba(0, 0, 0, 0.9);">
+        <img class="card-img-top" src="{{ case.found_pet_image.url }}" alt="Card image cap">
+    </div>
+      <div class="card border-info mb-3">
+    <div class="card-block mdl-button"  style="width: 18rem;">
+        <h4 class="card-title"><b>Type</b> : {{ case.pet_type }}</h4>
+        <p class="card-text"><b>Found Date</b> : {{ case.found_date }}</p>
+        <p class="card-text"><b>Found Location</b> : {{ case.found_location }}</p>
+        <p class="card-text"><b>Found By</b> : {{ case.citizen_name }}</p>
+        <p class="card-text"><b>UserName</b> : {{ case.founder_username }}</p>
+        <p class="card-text"><b>Contact No</b> : {{ case.citizen_phone }}</p>
+     {% if case.founder_username == user.get_username %}
+     <a href="{% url 'case_finder_delete' case.id %}" class="btn btn-danger float-center outline:none">Delete</a>
+     {% endif %}
+
+    </div>
+    <div class="card-footer text-muted bg-transparent border-info">
+      {{case.filed_date}}
+    </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+  </div>
+
+{% endblock %}

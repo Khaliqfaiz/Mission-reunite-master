@@ -1,0 +1,20 @@
+{% extends "home.html" %}
+{% block content %}
+<div class="content-section" >
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Case</legend>
+                <h2> Are you sure to delete the case {{ object.id }}???</h2>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+                {% if case.user != None %}
+                <a class="btn btn-outline-secondary" href="{% url 'case_detail' object.id %}" >Cancel</a>
+                {% else %}
+                <a class="btn btn-outline-secondary" href="{% url 'case_finder_list' %}" >Cancel</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+{% endblock content %}
